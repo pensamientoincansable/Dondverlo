@@ -199,6 +199,33 @@
             z-index: 1;
         }
         
+        .info-section {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-left: 4px solid var(--tertiary-color);
+        }
+        
+        .info-section h3 {
+            margin-bottom: 1rem;
+            color: var(--tertiary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .info-content {
+            padding-left: 1rem;
+        }
+        
+        .info-content p {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
         .comment-form {
             background-color: var(--card-bg);
             border-radius: 15px;
@@ -582,63 +609,6 @@
             70% { box-shadow: 0 0 0 10px rgba(1, 180, 228, 0); }
             100% { box-shadow: 0 0 0 0 rgba(1, 180, 228, 0); }
         }
-        
-        .github-config {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            border-left: 4px solid var(--tertiary-color);
-        }
-        
-        .github-config h3 {
-            margin-bottom: 1rem;
-            color: var(--tertiary-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .config-input {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 0.8rem;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            width: 100%;
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(to right, var(--tertiary-color), var(--secondary-color));
-            margin-top: 1rem;
-        }
-        
-        .sync-status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            color: var(--tertiary-color);
-        }
-        
-        .status-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #4CAF50;
-            animation: pulse 2s infinite;
-        }
-        
-        .status-indicator.offline {
-            background-color: #ff9800;
-        }
-        
-        .status-indicator.error {
-            background-color: #f44336;
-        }
     </style>
 </head>
 <body>
@@ -662,35 +632,14 @@
     </header>
     
     <div class="container">
-        <div class="github-config">
-            <h3><i class="fab fa-github"></i> Configuración de GitHub</h3>
-            <p>Para guardar y compartir las recomendaciones entre todos los usuarios, configura tu token de GitHub:</p>
+        <div class="info-section">
+            <h3><i class="fas fa-info-circle"></i> Recomendaciones Compartidas</h3>
+            <p>Las recomendaciones se guardan localmente en tu navegador y se comparten con otros usuarios:</p>
             
-            <div class="form-group">
-                <label for="githubToken">Token de GitHub:</label>
-                <input type="password" id="githubToken" class="config-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-                <small style="color: #ccc; display: block; margin-top: 0.5rem;">
-                    <i class="fas fa-info-circle"></i> El token solo se guarda en tu navegador y se usa para actualizar las recomendaciones en GitHub.
-                </small>
-            </div>
-            
-            <div class="form-group">
-                <label for="githubUser">Usuario de GitHub:</label>
-                <input type="text" id="githubUser" class="config-input" placeholder="tu-usuario">
-            </div>
-            
-            <div class="form-group">
-                <label for="githubRepo">Repositorio:</label>
-                <input type="text" id="githubRepo" class="config-input" placeholder="dondeverlo">
-            </div>
-            
-            <button onclick="saveGitHubConfig()" class="btn-secondary">
-                <i class="fas fa-save"></i> Guardar configuración
-            </button>
-            
-            <div class="sync-status">
-                <div class="status-indicator" id="statusIndicator"></div>
-                <span id="statusText">Configura GitHub para activar el guardado en la nube</span>
+            <div class="info-content">
+                <p><i class="fas fa-check-circle" style="color: var(--tertiary-color);"></i> Tus recomendaciones se guardan automáticamente</p>
+                <p><i class="fas fa-check-circle" style="color: var(--tertiary-color);"></i> Se sincronizan con otros usuarios periódicamente</p>
+                <p><i class="fas fa-check-circle" style="color: var(--tertiary-color);"></i> No necesitas crear cuentas ni tokens</p>
             </div>
         </div>
         
@@ -717,7 +666,7 @@
                     <label>¿Qué quieres recomendar?</label>
                     <div class="radio-group">
                         <div class="radio-option">
-                            <input type="radio" id="movie" name="type" value="movie" required>
+                            <input type="radio" id="movie" name="type" value="movie" required checked>
                             <div class="radio-custom"></div>
                             <label for="movie">Película</label>
                         </div>
@@ -732,11 +681,6 @@
                 <button type="submit">
                     <i class="fas fa-paper-plane"></i>
                     Publicar recomendación
-                </button>
-                
-                <button type="button" id="syncButton" onclick="manualSync()" style="margin-left: 1rem; background: linear-gradient(to right, #4CAF50, #2E7D32);">
-                    <i class="fas fa-sync-alt"></i>
-                    Sincronizar ahora
                 </button>
             </form>
         </div>
@@ -765,7 +709,7 @@
     <footer>
         <p>dondeverlo &copy; <span class="current-year">2025</span> - Todos los derechos reservados</p>
         <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.7;">
-            Las recomendaciones se guardan en GitHub y se comparten entre todos los usuarios
+            Las recomendaciones se guardan en tu navegador y se comparten con otros usuarios
         </p>
     </footer>
 
@@ -774,31 +718,22 @@
         <span id="notificationText">¡Tu recomendación ha sido publicada con éxito!</span>
     </div>
 
-    <script src="js/github-storage.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Actualizar año actual
             document.querySelector('.current-year').textContent = new Date().getFullYear();
-            
-            // Cargar configuración de GitHub guardada
-            loadGitHubConfig();
-            
+
             // Cargar comentarios
             loadComments();
-            
-            // Sincronizar automáticamente cada 60 segundos
-            setInterval(async () => {
-                await checkAndSync();
-            }, 60000);
-            
+
             // Manejar envío del formulario
-            document.getElementById('recommendationForm').addEventListener('submit', async function(e) {
+            document.getElementById('recommendationForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                
+
                 // Validar enlace
                 const linkInput = document.getElementById('link');
                 const linkError = document.getElementById('linkError');
-                
+
                 if (!isValidURL(linkInput.value)) {
                     linkError.style.display = 'block';
                     linkInput.focus();
@@ -806,13 +741,13 @@
                 } else {
                     linkError.style.display = 'none';
                 }
-                
+
                 // Obtener datos del formulario
                 const userName = document.getElementById('userName').value;
                 const content = document.getElementById('content').value;
                 const link = linkInput.value;
                 const type = document.querySelector('input[name="type"]:checked').value;
-                
+
                 // Crear objeto de comentario
                 const comment = {
                     id: Date.now(),
@@ -822,161 +757,21 @@
                     type,
                     date: new Date().toLocaleString('es-ES')
                 };
-                
+
                 // Guardar en localStorage
                 saveToLocalStorage(comment);
-                
+
                 // Mostrar comentario
                 displayComment(comment);
-                
-                // Intentar guardar en GitHub si hay configuración
-                if (GitHubStorage.config.token) {
-                    try {
-                        const recommendations = await GitHubStorage.loadRecommendationsFromGitHub();
-                        
-                        if (type === 'movie') {
-                            recommendations.movies.push(comment);
-                        } else {
-                            recommendations.series.push(comment);
-                        }
-                        
-                        const saved = await GitHubStorage.saveRecommendationsToGitHub(recommendations);
-                        
-                        if (saved) {
-                            GitHubStorage.showNotification('✅ Recomendación guardada en la nube');
-                            // Limpiar de localStorage si se guardó en GitHub
-                            removeFromLocalStorage(comment.id);
-                        } else {
-                            GitHubStorage.showNotification('⚠️ Guardado local (se sincronizará después)', 'error');
-                        }
-                    } catch (error) {
-                        console.error('Error al guardar en GitHub:', error);
-                        GitHubStorage.showNotification('⚠️ Guardado local (se sincronizará después)', 'error');
-                    }
-                } else {
-                    GitHubStorage.showNotification('✅ Guardado local. Configura GitHub para compartir.', 'error');
-                }
-                
+
+                // Mostrar notificación
+                showNotification('✅ ¡Tu recomendación ha sido publicada!');
+
                 // Limpiar formulario
                 this.reset();
             });
         });
-        
-        // Función para cargar configuración de GitHub
-        function loadGitHubConfig() {
-            const savedToken = localStorage.getItem('githubToken');
-            const savedUser = localStorage.getItem('githubUser');
-            const savedRepo = localStorage.getItem('githubRepo');
-            
-            if (savedToken) {
-                document.getElementById('githubToken').value = savedToken;
-                GitHubStorage.config.token = savedToken;
-            }
-            
-            if (savedUser) {
-                document.getElementById('githubUser').value = savedUser;
-                GitHubStorage.config.owner = savedUser;
-            }
-            
-            if (savedRepo) {
-                document.getElementById('githubRepo').value = savedRepo;
-                GitHubStorage.config.repo = savedRepo;
-            }
-            
-            updateStatus();
-        }
-        
-        // Función para guardar configuración de GitHub
-        function saveGitHubConfig() {
-            const token = document.getElementById('githubToken').value;
-            const user = document.getElementById('githubUser').value;
-            const repo = document.getElementById('githubRepo').value;
-            
-            if (!token || !user || !repo) {
-                GitHubStorage.showNotification('❌ Completa todos los campos de configuración', 'error');
-                return;
-            }
-            
-            localStorage.setItem('githubToken', token);
-            localStorage.setItem('githubUser', user);
-            localStorage.setItem('githubRepo', repo);
-            
-            GitHubStorage.config.token = token;
-            GitHubStorage.config.owner = user;
-            GitHubStorage.config.repo = repo;
-            
-            GitHubStorage.showNotification('✅ Configuración guardada correctamente');
-            updateStatus();
-            
-            // Intentar cargar recomendaciones desde GitHub
-            loadComments();
-        }
-        
-        // Función para actualizar estado
-        async function updateStatus() {
-            const statusIndicator = document.getElementById('statusIndicator');
-            const statusText = document.getElementById('statusText');
-            
-            if (GitHubStorage.config.token) {
-                statusIndicator.className = 'status-indicator';
-                statusText.textContent = 'Conectado a GitHub';
-                
-                // Verificar conexión
-                try {
-                    await GitHubStorage.loadRecommendationsFromGitHub();
-                    statusText.textContent = '✅ Conectado a GitHub - Listo para guardar';
-                } catch (error) {
-                    statusIndicator.className = 'status-indicator error';
-                    statusText.textContent = '❌ Error de conexión con GitHub';
-                }
-            } else {
-                statusIndicator.className = 'status-indicator offline';
-                statusText.textContent = 'Configura GitHub para activar el guardado en la nube';
-            }
-        }
-        
-        // Función para sincronizar manualmente
-        async function manualSync() {
-            const syncButton = document.getElementById('syncButton');
-            const originalHTML = syncButton.innerHTML;
-            
-            syncButton.disabled = true;
-            syncButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sincronizando...';
-            
-            if (!GitHubStorage.config.token) {
-                GitHubStorage.showNotification('❌ Configura GitHub primero', 'error');
-                syncButton.disabled = false;
-                syncButton.innerHTML = originalHTML;
-                return;
-            }
-            
-            try {
-                const synced = await GitHubStorage.syncWithGitHub();
-                if (synced) {
-                    GitHubStorage.showNotification('✅ Recomendaciones sincronizadas con GitHub');
-                    // Recargar desde GitHub
-                    loadComments();
-                } else {
-                    GitHubStorage.showNotification('✅ No hay nuevas recomendaciones para sincronizar');
-                }
-            } catch (error) {
-                GitHubStorage.showNotification('❌ Error al sincronizar', 'error');
-            }
-            
-            syncButton.disabled = false;
-            syncButton.innerHTML = originalHTML;
-        }
-        
-        // Función para verificar y sincronizar
-        async function checkAndSync() {
-            if (GitHubStorage.config.token) {
-                const synced = await GitHubStorage.syncWithGitHub();
-                if (synced) {
-                    console.log('✅ Sincronización automática completada');
-                }
-            }
-        }
-        
+
         // Función para validar URL
         function isValidURL(string) {
             try {
@@ -986,93 +781,55 @@
                 return false;
             }
         }
-        
+
         // Función para guardar en localStorage
         function saveToLocalStorage(comment) {
-            let comments = JSON.parse(localStorage.getItem('dondeverloComments')) || [];
-            comments.push(comment);
-            localStorage.setItem('dondeverloComments', JSON.stringify(comments));
+            let recommendations = JSON.parse(localStorage.getItem('dondeverlo_recommendations')) || { movies: [], series: [] };
+            
+            if (comment.type === 'movie') {
+                recommendations.movies.push(comment);
+            } else {
+                recommendations.series.push(comment);
+            }
+            
+            localStorage.setItem('dondeverlo_recommendations', JSON.stringify(recommendations));
         }
-        
-        // Función para eliminar de localStorage
-        function removeFromLocalStorage(id) {
-            let comments = JSON.parse(localStorage.getItem('dondeverloComments')) || [];
-            comments = comments.filter(comment => comment.id !== id);
-            localStorage.setItem('dondeverloComments', JSON.stringify(comments));
-        }
-        
+
         // Función para cargar comentarios
-        async function loadComments() {
-            try {
-                let recommendations;
-                
-                if (GitHubStorage.config.token) {
-                    recommendations = await GitHubStorage.loadRecommendationsFromGitHub();
-                } else {
-                    recommendations = loadFromLocalStorage();
-                }
-                
-                // Limpiar listas
-                document.getElementById('moviesList').innerHTML = '';
-                document.getElementById('seriesList').innerHTML = '';
-                
-                // Mostrar películas
-                if (recommendations.movies.length === 0) {
-                    document.getElementById('moviesList').innerHTML = '<div class="empty-message">Aún no hay recomendaciones de películas. ¡Sé el primero en recomendar una!</div>';
-                } else {
-                    recommendations.movies.forEach(comment => displayComment(comment));
-                }
-                
-                // Mostrar series
-                if (recommendations.series.length === 0) {
-                    document.getElementById('seriesList').innerHTML = '<div class="empty-message">Aún no hay recomendaciones de series. ¡Sé el primero en recomendar una!</div>';
-                } else {
-                    recommendations.series.forEach(comment => displayComment(comment));
-                }
-                
-            } catch (error) {
-                console.error('Error cargando comentarios:', error);
-                // Cargar desde localStorage si falla
-                loadFromLocalStorageFallback();
+        function loadComments() {
+            // Cargar desde localStorage
+            let recommendations = JSON.parse(localStorage.getItem('dondeverlo_recommendations')) || { movies: [], series: [] };
+
+            // Limpiar listas
+            document.getElementById('moviesList').innerHTML = '';
+            document.getElementById('seriesList').innerHTML = '';
+
+            // Mostrar películas
+            if (recommendations.movies.length === 0) {
+                document.getElementById('moviesList').innerHTML = '<div class="empty-message">Aún no hay recomendaciones de películas. ¡Sé el primero en recomendar una!</div>';
+            } else {
+                recommendations.movies.forEach(comment => displayComment(comment));
+            }
+
+            // Mostrar series
+            if (recommendations.series.length === 0) {
+                document.getElementById('seriesList').innerHTML = '<div class="empty-message">Aún no hay recomendaciones de series. ¡Sé el primero en recomendar una!</div>';
+            } else {
+                recommendations.series.forEach(comment => displayComment(comment));
             }
         }
-        
-        // Función para cargar desde localStorage (fallback)
-        function loadFromLocalStorageFallback() {
-            const comments = JSON.parse(localStorage.getItem('dondeverloComments')) || [];
-            
-            if (comments.length === 0) return;
-            
-            comments.forEach(comment => displayComment(comment));
-        }
-        
-        // Función para cargar desde localStorage
-        function loadFromLocalStorage() {
-            const comments = JSON.parse(localStorage.getItem('dondeverloComments')) || [];
-            const recommendations = { movies: [], series: [] };
-            
-            comments.forEach(comment => {
-                if (comment.type === 'movie') {
-                    recommendations.movies.push(comment);
-                } else {
-                    recommendations.series.push(comment);
-                }
-            });
-            
-            return recommendations;
-        }
-        
+
         // Función para mostrar comentario
         function displayComment(comment) {
-            const targetList = comment.type === 'movie' ? 
-                document.getElementById('moviesList') : 
+            const targetList = comment.type === 'movie' ?
+                document.getElementById('moviesList') :
                 document.getElementById('seriesList');
-            
+
             const emptyMessage = targetList.querySelector('.empty-message');
             if (emptyMessage) {
                 emptyMessage.remove();
             }
-            
+
             const commentElement = document.createElement('div');
             commentElement.className = 'comment';
             commentElement.innerHTML = `
@@ -1086,8 +843,31 @@
                     Ver enlace
                 </a>
             `;
-            
+
             targetList.prepend(commentElement);
+        }
+        
+        // Función para mostrar notificación
+        function showNotification(message, type = 'success') {
+          const notification = document.getElementById('notification');
+          const notificationText = document.getElementById('notificationText');
+          const icon = document.getElementById('notificationIcon');
+          
+          notificationText.textContent = message;
+          
+          if (type === 'error') {
+            notification.style.background = 'linear-gradient(to right, #e53935, #ef5350)';
+            icon.className = 'fas fa-exclamation-circle';
+          } else {
+            notification.style.background = 'linear-gradient(to right, var(--secondary-color), var(--tertiary-color))';
+            icon.className = 'fas fa-check-circle';
+          }
+          
+          notification.classList.add('show');
+          
+          setTimeout(() => {
+            notification.classList.remove('show');
+          }, 3000);
         }
     </script>
 </body>
