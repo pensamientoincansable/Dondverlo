@@ -1,3 +1,7 @@
+--- local-storage-manager.js (原始)
+
+
++++ local-storage-manager.js (修改后)
 // Función para cargar recomendaciones desde el archivo local
 async function loadRecommendationsFromLocal() {
   try {
@@ -40,9 +44,9 @@ function showNotification(message, type = 'success') {
   const notification = document.getElementById('notification');
   const notificationText = document.getElementById('notificationText');
   const icon = document.getElementById('notificationIcon');
-  
+
   notificationText.textContent = message;
-  
+
   if (type === 'error') {
     notification.style.background = 'linear-gradient(to right, #e53935, #ef5350)';
     icon.className = 'fas fa-exclamation-circle';
@@ -50,9 +54,9 @@ function showNotification(message, type = 'success') {
     notification.style.background = 'linear-gradient(to right, var(--secondary-color), var(--tertiary-color))';
     icon.className = 'fas fa-check-circle';
   }
-  
+
   notification.classList.add('show');
-  
+
   setTimeout(() => {
     notification.classList.remove('show');
   }, 3000);
