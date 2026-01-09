@@ -718,7 +718,7 @@
                     <label>¿Qué quieres recomendar?</label>
                     <div class="radio-group">
                         <div class="radio-option">
-                            <input type="radio" id="movie" name="type" value="movie" required>
+                            <input type="radio" id="movie" name="type" value="movie" required checked>
                             <div class="radio-custom"></div>
                             <label for="movie">Película</label>
                         </div>
@@ -766,7 +766,7 @@
     <footer>
         <p>dondeverlo &copy; <span class="current-year">2025</span> - Todos los derechos reservados</p>
         <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.7;">
-            Las recomendaciones se guardan en GitHub y se comparten entre todos los usuarios
+            Las recomendaciones se guardan en tu navegador y se comparten con otros usuarios
         </p>
     </footer>
 
@@ -775,7 +775,6 @@
         <span id="notificationText">¡Tu recomendación ha sido publicada con éxito!</span>
     </div>
 
-    <script src="js/github-storage.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Actualizar año actual
@@ -793,7 +792,7 @@
             }, 60000);
 
             // Manejar envío del formulario
-            document.getElementById('recommendationForm').addEventListener('submit', async function(e) {
+            document.getElementById('recommendationForm').addEventListener('submit', function(e) {
                 e.preventDefault();
 
                 // Validar enlace
@@ -1089,6 +1088,29 @@
             `;
 
             targetList.prepend(commentElement);
+        }
+        
+        // Función para mostrar notificación
+        function showNotification(message, type = 'success') {
+          const notification = document.getElementById('notification');
+          const notificationText = document.getElementById('notificationText');
+          const icon = document.getElementById('notificationIcon');
+          
+          notificationText.textContent = message;
+          
+          if (type === 'error') {
+            notification.style.background = 'linear-gradient(to right, #e53935, #ef5350)';
+            icon.className = 'fas fa-exclamation-circle';
+          } else {
+            notification.style.background = 'linear-gradient(to right, var(--secondary-color), var(--tertiary-color))';
+            icon.className = 'fas fa-check-circle';
+          }
+          
+          notification.classList.add('show');
+          
+          setTimeout(() => {
+            notification.classList.remove('show');
+          }, 3000);
         }
     </script>
 </body>

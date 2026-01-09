@@ -1,45 +1,51 @@
-# dondeverlo - Foro de Recomendaciones de Cine
+# dondeverlo - Tu foro de recomendaciones de cine
 
 ## Descripción
-Foro web donde los usuarios pueden compartir recomendaciones de películas y series. Las recomendaciones se guardan en un repositorio de GitHub, permitiendo que todos los usuarios vean y compartan las mismas recomendaciones desde cualquier dispositivo.
+
+Aplicación web para compartir recomendaciones de películas y series. Los usuarios pueden publicar sus recomendaciones favoritas y ver las de otros usuarios.
 
 ## Características
-- 🎬 Interfaz cinematográfica con efectos visuales
-- 📝 Formulario para recomendar películas y series
-- ☁️ Almacenamiento en repositorio GitHub
-- 🔄 Sincronización automática y manual
-- 📱 Diseño responsive
-- 💾 Funcionamiento offline con localStorage
 
-## Instalación y Configuración
+- Interfaz visual atractiva con efectos cinematográficos
+- Formulario intuitivo para publicar recomendaciones
+- Separación entre películas y series
+- Diseño responsive adaptable a dispositivos móviles
+- Almacenamiento local de recomendaciones
 
-### Paso 1: Crear un repositorio en GitHub
-1. Ve a [GitHub](https://github.com) y crea un nuevo repositorio
-2. Dale un nombre (ej: "dondeverlo")
-3. Elige si será público o privado
+## Cómo usar
 
-### Paso 2: Crear un Token de Acceso Personal
-1. En GitHub, ve a **Settings > Developer settings > Personal access tokens**
-2. Haz clic en **Tokens (classic) > Generate new token (classic)**
-3. Configura el token:
-   - **Note**: "dondeverlo-web"
-   - **Expiration**: Elige una duración (recomendado: 90 días)
-   - **Select scopes**: Marca **repo** (acceso completo a repositorios)
-4. Haz clic en **Generate token**
-5. **¡COPIA EL TOKEN!** Solo lo verás esta vez
+1. Abre la aplicación web en tu navegador
+2. Ingresa tu nombre
+3. Escribe tu recomendación
+4. Proporciona un enlace a la película o serie
+5. Selecciona si es una película o serie
+6. Haz clic en "Publicar recomendación"
 
-### Paso 3: Configurar la Aplicación
-1. Sube todos los archivos a tu repositorio
-2. Abre la aplicación web (puedes usar GitHub Pages o cualquier hosting)
-3. En la sección "Configuración de GitHub", ingresa:
-   - **Token de GitHub**: El token que copiaste
-   - **Usuario de GitHub**: Tu nombre de usuario
-   - **Repositorio**: El nombre de tu repositorio
-4. Haz clic en **Guardar configuración**
+## Almacenamiento
 
-### Paso 4: Usar la Aplicación
-1. Los usuarios pueden ahora recomendar películas y series
-2. Las recomendaciones se guardarán en `data/recommendations.json`
-3. Todos los usuarios verán las mismas recomendaciones
+Las recomendaciones se guardan localmente en tu navegador usando localStorage. En un entorno de producción, se necesitaría un backend para compartir las recomendaciones entre usuarios.
 
-## Estructura de Archivos
+## Estructura del proyecto
+
+```
+/workspace/
+├── index.html          # Página principal con toda la lógica
+├── data/
+│   └── recomendations.json  # Archivo JSON para almacenamiento compartido
+├── README.md           # Documentación del proyecto
+└── local-storage-manager.js  # Gestor del almacenamiento local
+```
+
+## Notas sobre el desarrollo
+
+La versión actual almacena las recomendaciones en localStorage del navegador. Para que las recomendaciones se compartan entre usuarios en un entorno real, se necesitaría:
+
+1. Un backend que gestione el archivo JSON
+2. Un mecanismo para que los clientes obtengan actualizaciones periódicas
+3. Un sistema de sincronización
+
+Este proyecto está preparado para integrarse fácilmente con un backend simplemente cambiando las funciones de `saveToLocalStorage` y `loadComments` por llamadas a API.
+
+## Licencia
+
+MIT
